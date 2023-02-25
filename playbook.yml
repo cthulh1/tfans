@@ -1,0 +1,20 @@
+---
+- name: nginx configuration
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: apt-get update
+    apt:
+      update_cache: yes
+
+  - name: Nginx install
+    apt:
+      name: nginx
+      state: latest
+
+  - name: Start nginx service
+    service:
+      name: nginx
+      state: restarted
+      enabled: yes

@@ -1,0 +1,11 @@
+---
+ all:
+    hosts:
+%{ for i, hosts in ans_host ~}
+      ${hosts}:
+         vars:
+           ansible_host:${ans_ip[i]}
+           ansible_user:${ans_user}
+           ansible_pass:${ans_passwd[i]}
+%{ endfor ~}
+...
