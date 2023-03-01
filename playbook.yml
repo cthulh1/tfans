@@ -3,6 +3,20 @@
   hosts: all
   become: yes
 
+###############
+
+  vars:
+    files:
+      vh1: "virtualhost1.conf.j2"
+      vh2: "virtualhost2.conf.j2"
+
+    nginx_src: "/etc/nginx/nginx.conf"
+    nginx_dest: "/etc/nginx/"
+    vh1_listen_port: 80
+    vh2_listen_port: 443
+
+###############
+
   tasks:
   - name: apt-get update
     apt:
@@ -10,6 +24,8 @@
 
   - name: Nginx install
     apt:
+      #name: nginx=1.18.0-0ubuntu1.4
+      #state: present
       name: nginx
       state: latest
 
@@ -18,3 +34,28 @@
       name: nginx
       state: restarted
       enabled: yes
+
+  - block:   #Reload after generating and copying new configs#
+      - name: Generate Virtualhosts files
+        template:
+          src: "{{ item.value }}"
+          dest: "/etc/nginx/sites-available/{{ item.value | regex_replace('.j2','') }}"
+        loop: "{{ lookup('dict', files) }}"
+
+      - name: Copy Nginx to the Web servers
+        copy:
+          src: "{{ nginx_src }}"
+          dest: "{{ nginx_dest }}"
+    notify: Nginx reload
+
+  - name: Create symlinks for virtualhosts
+    shell: "ln -s /etc/nginx/sites-available/{{ item.value | regex_replace('.j2','') }} /etc/nginx/sites-enabled/{{ item.value | regex_replace('.j2','') }}"
+    loop: "{{ lookup('dict', files) }}"
+
+###############
+
+  handlers:
+  - name: Nginx reload
+    service:
+      name: nginx
+      state: reloaded
