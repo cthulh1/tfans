@@ -6,15 +6,26 @@
 ###############
 
   vars:
+  # virtualhosts vars
     files:
       vh1: "virtualhost1.conf.j2"
       vh2: "virtualhost2.conf.j2"
-
-    nginx_src: "/etc/nginx/nginx.conf"
-    nginx_dest: "/etc/nginx/"
     vh1_listen_port: 80
     vh2_listen_port: 443
-
+    sites_available: "/etc/nginx/sites-available/"
+  # nginx vars
+    nginx_src: "nginx.conf.j2"
+    nginx_dest: "/etc/nginx/nginx.conf"
+    # enter "#" or "" to switch off/switch on mail module in nginx.conf
+    mail_module_onoff: "#"
+    worker_connections: 768
+    keepalive_timeout: 65
+    types_hash_max_size: 2048
+    pop3_localhost: 110
+    imap_localhost: 143
+    sites_enabled: "/etc/nginx/sites-enabled/"
+    access_log: "/var/log/nginx/access.log"
+    error_log: "/var/log/nginx/error.log"
 ###############
 
   tasks:
@@ -24,10 +35,10 @@
 
   - name: Nginx install
     apt:
-      name: nginx=1.18.0-0ubuntu1.4
-      state: present
-      #name: nginx
-      #state: latest
+      #name: nginx=1.18.0-0ubuntu1.4
+      #state: present
+      name: nginx
+      state: latest
 
   - name: Start nginx service
     service:
@@ -35,21 +46,26 @@
       state: restarted
       enabled: yes
 
-  - block:   #Reload after generating and copying new configs#
+  - block:   #Reload after generating new configs#
       - name: Generate Virtualhosts files
         template:
           src: "{{ item.value }}"
-          dest: "/etc/nginx/sites-available/{{ item.value | regex_replace('.j2','') }}"
+          dest: "{{ sites_available }}{{ item.value | regex_replace('.j2','') }}"
         loop: "{{ lookup('dict', files) }}"
 
-      - name: Copy Nginx to the Web servers
-        copy:
+      - name: Generate Nginx config
+        template:
           src: "{{ nginx_src }}"
           dest: "{{ nginx_dest }}"
+
+      - name: Remove default config from sites-enabled
+        file:
+          path: "{{ sites_enabled }}default"
+          state: absent
     notify: Nginx reload
 
   - name: Create symlinks for virtualhosts
-    shell: "ln -s /etc/nginx/sites-available/{{ item.value | regex_replace('.j2','') }} /etc/nginx/sites-enabled/{{ item.value | regex_replace('.j2','') }}"
+    shell: "ln -s {{ sites_available }}{{ item.value | regex_replace('.j2','') }} {{ sites_enabled }}{{ item.value | regex_replace('.j2','') }}"
     loop: "{{ lookup('dict', files) }}"
 
 ###############
