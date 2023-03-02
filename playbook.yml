@@ -35,10 +35,10 @@
 
   - name: Nginx install
     apt:
-      #name: nginx=1.18.0-0ubuntu1.4
-      #state: present
-      name: nginx
-      state: latest
+      name: nginx=1.18.0-0ubuntu1.4
+      state: present
+      #name: nginx
+      #state: latest
 
   - name: Start nginx service
     service:
