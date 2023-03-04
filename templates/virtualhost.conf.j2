@@ -19,8 +19,8 @@
 # Default server configuration
 #
 server {
-	listen {{ vh1_listen_port }} default_server;
-	listen [::]:{{ vh1_listen_port }} default_server;
+	listen {{ item.value.vh_port }} default_server;
+	listen [::]:{{ item.value.vh_port }} default_server;
 
 	# SSL configuration
 	#
@@ -38,7 +38,7 @@ server {
 	#
 	# include snippets/snakeoil.conf;
 
-	root /var/www/html;
+	root /var/www/html/{{ item.value.html_path }};
 
 	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.nginx-debian.html;

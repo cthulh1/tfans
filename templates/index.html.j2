@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to index.html!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Test index.html on port {{ item.value.vh_port }}</h1>
+
+Web users list:
+{% if item.value.html_path == "web1" %}
+{% for data in web1_user_names %}
+{{ data }}{{ ", " if not loop.last else "." }}
+{% endfor %}
+{% else %}
+{% for data in web2_user_names %}
+{{ data }}{{ ", " if not loop.last else "." }}
+{% endfor %}
+{% endif %}
+
+</body>
+</html>

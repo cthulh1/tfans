@@ -1,3 +1,0 @@
-%{ for i, dnsname in dns ~}
-${i+1}: ${dnsname} ${ip[i]} ${passwd[i]}
-%{ endfor ~}

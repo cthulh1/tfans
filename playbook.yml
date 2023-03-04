@@ -6,15 +6,22 @@
 ###############
 
   vars:
+    vhport: ""
   # virtualhosts vars
-    files:
-      vh1: "virtualhost1.conf.j2"
-      vh2: "virtualhost2.conf.j2"
-    vh1_listen_port: 80
-    vh2_listen_port: 443
+    vh_temp_file: "templates/virtualhost.conf.j2"
+    vh_files:
+      vh1:
+        vh_name: "virtualhost1.conf"
+        vh_port: 80
+        html_path: "web1"
+      vh2:
+        vh_name: "virtualhost2.conf"
+        vh_port: 443
+        html_path: "web2"
+
     sites_available: "/etc/nginx/sites-available/"
   # nginx vars
-    nginx_src: "nginx.conf.j2"
+    nginx_src: "templates/nginx.conf.j2"
     nginx_dest: "/etc/nginx/nginx.conf"
     # enter "#" or "" to switch off/switch on mail module in nginx.conf
     mail_module_onoff: "#"
@@ -26,6 +33,17 @@
     sites_enabled: "/etc/nginx/sites-enabled/"
     access_log: "/var/log/nginx/access.log"
     error_log: "/var/log/nginx/error.log"
+  # index.html vars
+    index_temp_file: "templates/index.html.j2"
+    web1_user_names:
+      - "Vasya"
+      - "Petya"
+      - "Kolya"
+    web2_user_names:
+      - "Anton"
+      - "Alex"
+      - "Sergey"
+
 ###############
 
   tasks:
@@ -35,7 +53,7 @@
 
   - name: Nginx install
     apt:
-      name: nginx=1.18.0-0ubuntu1.4
+      name: nginx=1.14.0-0ubuntu1.11
       state: present
       #name: nginx
       #state: latest
@@ -49,24 +67,37 @@
   - block:   #Reload after generating new configs#
       - name: Generate Virtualhosts files
         template:
-          src: "{{ item.value }}"
-          dest: "{{ sites_available }}{{ item.value | regex_replace('.j2','') }}"
-        loop: "{{ lookup('dict', files) }}"
+          src: "{{ vh_temp_file }}"
+          dest: "{{ sites_available }}{{ item.value.vh_name }}"
+        loop: "{{ lookup('dict', vh_files) }}"
 
       - name: Generate Nginx config
         template:
           src: "{{ nginx_src }}"
           dest: "{{ nginx_dest }}"
 
+      - name: Create /var/www/html/ directory
+        file:
+          path: "/var/www/html/{{ item.value.html_path }}"
+          state: directory
+        loop: "{{ lookup('dict', vh_files) }}"
+
+      - name: Generate index.html files
+        template:
+          src: "{{ index_temp_file }}"
+          dest: "/var/www/html/{{ item.value.html_path }}/index.html"
+        loop: "{{ lookup('dict', vh_files) }}"
+
       - name: Remove default config from sites-enabled
         file:
           path: "{{ sites_enabled }}default"
           state: absent
-    notify: Nginx reload
 
-  - name: Create symlinks for virtualhosts
-    shell: "ln -s {{ sites_available }}{{ item.value | regex_replace('.j2','') }} {{ sites_enabled }}{{ item.value | regex_replace('.j2','') }}"
-    loop: "{{ lookup('dict', files) }}"
+      - name: Create symlinks for virtualhosts
+        shell: "ln -s {{ sites_available }}{{ item.value.vh_name }} {{ sites_enabled }}{{ item.value.vh_name }}"
+        loop: "{{ lookup('dict', vh_files) }}"
+
+    notify: Nginx reload
 
 ###############
 
