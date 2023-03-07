@@ -47,6 +47,7 @@
 ###############
 
   tasks:
+    
   - name: apt-get update
     apt:
       update_cache: yes
@@ -57,47 +58,46 @@
       state: present
       #name: nginx
       #state: latest
+    notify: Start nginx service
 
-  - name: Start nginx service
-    service:
-      name: nginx
-      state: restarted
-      enabled: yes
 
-  - block:   #Reload after generating new configs#
-      - name: Generate Virtualhosts files
-        template:
-          src: "{{ vh_temp_file }}"
-          dest: "{{ sites_available }}{{ item.value.vh_name }}"
-        loop: "{{ lookup('dict', vh_files) }}"
-
-      - name: Generate Nginx config
-        template:
-          src: "{{ nginx_src }}"
-          dest: "{{ nginx_dest }}"
-
-      - name: Create /var/www/html/ directory
-        file:
-          path: "/var/www/html/{{ item.value.html_path }}"
-          state: directory
-        loop: "{{ lookup('dict', vh_files) }}"
-
-      - name: Generate index.html files
-        template:
-          src: "{{ index_temp_file }}"
-          dest: "/var/www/html/{{ item.value.html_path }}/index.html"
-        loop: "{{ lookup('dict', vh_files) }}"
-
-      - name: Remove default config from sites-enabled
-        file:
-          path: "{{ sites_enabled }}default"
-          state: absent
-
-      - name: Create symlinks for virtualhosts
-        shell: "ln -s {{ sites_available }}{{ item.value.vh_name }} {{ sites_enabled }}{{ item.value.vh_name }}"
-        loop: "{{ lookup('dict', vh_files) }}"
-
+  - name: Generate Virtualhosts files
+    template:
+      src: "{{ vh_temp_file }}"
+      dest: "{{ sites_available }}{{ item.value.vh_name }}"
+    loop: "{{ lookup('dict', vh_files) }}"
     notify: Nginx reload
+
+  - name: Generate Nginx config
+    template:
+      src: "{{ nginx_src }}"
+      dest: "{{ nginx_dest }}"
+    notify: Nginx reload
+
+  - name: Create /var/www/html/ directory
+    file:
+      path: "/var/www/html/{{ item.value.html_path }}"
+      state: directory
+    loop: "{{ lookup('dict', vh_files) }}"
+
+  - name: Generate index.html files
+    template:
+      src: "{{ index_temp_file }}"
+      dest: "/var/www/html/{{ item.value.html_path }}/index.html"
+    loop: "{{ lookup('dict', vh_files) }}"
+    notify: Nginx reload
+
+  - name: Remove default config from sites-enabled
+    file:
+      path: "{{ sites_enabled }}default"
+      state: absent
+
+  - name: Create symlinks for virtualhosts
+    file:
+      src: "{{ sites_available }}{{ item.value.vh_name }}"
+      dest: "{{ sites_enabled }}{{ item.value.vh_name }}"
+      state: link
+    loop: "{{ lookup('dict', vh_files) }}"
 
 ###############
 
@@ -106,3 +106,9 @@
     service:
       name: nginx
       state: reloaded
+
+  - name: Start nginx service
+    service:
+      name: nginx
+      state: restarted
+      enabled: yes
