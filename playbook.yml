@@ -8,7 +8,7 @@
   vars:
     vhport: ""
   # virtualhosts vars
-    vh_temp_file: "templates/virtualhost.conf.j2"
+    vh_temp_file: "virtualhost.conf.j2"
     vh_files:
       vh1:
         vh_name: "virtualhost1.conf"
@@ -21,7 +21,7 @@
 
     sites_available: "/etc/nginx/sites-available/"
   # nginx vars
-    nginx_src: "templates/nginx.conf.j2"
+    nginx_src: "nginx.conf.j2"
     nginx_dest: "/etc/nginx/nginx.conf"
     # enter "#" or "" to switch off/switch on mail module in nginx.conf
     mail_module_onoff: "#"
@@ -34,7 +34,7 @@
     access_log: "/var/log/nginx/access.log"
     error_log: "/var/log/nginx/error.log"
   # index.html vars
-    index_temp_file: "templates/index.html.j2"
+    index_temp_file: "index.html.j2"
     web1_user_names:
       - "Vasya"
       - "Petya"
