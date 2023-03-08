@@ -1,4 +1,4 @@
-# Ansible роль: nginx_web
+# Ansible роль: deploy_nginx_vhs_web
 
 ## Описание
 
