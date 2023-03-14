@@ -1,17 +1,4 @@
 ---
-# virtualhosts vars
-  vh_temp_file: "virtualhost.conf.j2"
-  vh_files:
-    vh1:
-      vh_name: "virtualhost1.conf"
-      vh_port: 80
-      html_path: "web1"
-    vh2:
-      vh_name: "virtualhost2.conf"
-      vh_port: 443
-      html_path: "web2"
-
-  sites_available: "/etc/nginx/sites-available/"
 # nginx vars
   nginx_src: "nginx.conf.j2"
   nginx_dest: "/etc/nginx/nginx.conf"
@@ -22,7 +9,6 @@
   types_hash_max_size: 2048
   pop3_localhost: 110
   imap_localhost: 143
-  sites_enabled: "/etc/nginx/sites-enabled/"
   access_log: "/var/log/nginx/access.log"
   error_log: "/var/log/nginx/error.log"
 # index.html vars

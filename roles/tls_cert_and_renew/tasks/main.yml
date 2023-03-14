@@ -1,0 +1,40 @@
+---
+- name: apt-get update
+  apt:
+    update_cache: yes
+
+- name: Install Certbot
+  apt:
+    name: python3-certbot-nginx
+    state: present
+
+- name: Let's Encrypt cert
+  shell: "certbot certonly --non-interactive --nginx --agree-tos --preferred-challenges http --email {{ email }} -d {{ ansible_host }}"
+
+- name: Generate Virtualhosts files
+  template:
+    src: "{{ vh_temp_file }}"
+    dest: "{{ sites_available }}{{ ansible_host }}.conf"
+  notify: nginx reload
+
+- name: Remove default config from sites-enabled
+  file:
+    path: "{{ sites_enabled }}default"
+    state: absent
+  notify: nginx reload
+
+- name: Create symlinks for virtualhosts
+  file:
+    src: "{{ sites_available }}{{ ansible_host }}.conf"
+    dest: "{{ sites_enabled }}{{ ansible_host }}.conf"
+    state: link
+  notify: nginx reload
+
+- name: Create cron job for certificate renewal
+  cron:
+    name: Renew Let's Encrypt certificate
+    minute: "0"
+    hour: "0"
+    weekday: "0"
+    job: "certbot renew ---non-interactive --post-hook 'systemctl reload nginx'"
+  

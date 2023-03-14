@@ -21,7 +21,7 @@ http {
 	types_hash_max_size {{ types_hash_max_size }};
 	# server_tokens off;
 
-	# server_names_hash_bucket_size 64;
+	server_names_hash_bucket_size 64;
 	# server_name_in_redirect off;
 
 	include /etc/nginx/mime.types;

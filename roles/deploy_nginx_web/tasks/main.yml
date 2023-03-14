@@ -1,0 +1,31 @@
+---
+- name: apt-get update
+  apt:
+    update_cache: yes
+
+- name: Nginx install
+  apt:
+    name: nginx=1.14.0-0ubuntu1.11
+    state: present
+    #name: nginx
+    #state: latest
+  notify: Start nginx service
+
+- name: Create /var/www/html/ directory
+  file:
+    path: "/var/www/{{ ansible_host }}/html/"
+    state: directory
+
+- name: Generate Nginx config
+  template:
+    src: "{{ nginx_src }}"
+    dest: "{{ nginx_dest }}"
+  notify: Nginx reload
+
+- name: Generate index.html files
+  template:
+    src: "{{ index_temp_file }}"
+    dest: "/var/www/{{ ansible_host }}/html/index.html"
+
+
+

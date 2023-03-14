@@ -1,0 +1,6 @@
+---
+  email: "aronov.alexx@gmail.com"
+# virtualhosts vars
+  vh_temp_file: "virtualhost.conf.j2"
+  sites_available: "/etc/nginx/sites-available/"
+  sites_enabled: "/etc/nginx/sites-enabled/"
