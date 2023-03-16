@@ -1,0 +1,6 @@
+---
+- name: Generate Virtualhost file
+  template:
+    src: "{{ vh_temp_file }}"
+    dest: "/etc/nginx/conf.d/{{ ansible_host }}.conf"
+  notify: nginx reload

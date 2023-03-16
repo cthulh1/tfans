@@ -1,34 +1,22 @@
 ---
-- name: apt-get update
-  apt:
-    update_cache: yes
+- name: install certbot for Ubuntu
+  include: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
 
-- name: Install Certbot
-  apt:
-    name: python3-certbot-nginx
-    state: present
+- name: install certbot for CentOS
+  include: centos.yml
+  when: ansible_distribution == "CentOS"
 
 - name: Let's Encrypt cert
   shell: "certbot certonly --non-interactive --nginx --agree-tos --preferred-challenges http --email {{ email }} -d {{ ansible_host }}"
 
-- name: Generate Virtualhosts files
-  template:
-    src: "{{ vh_temp_file }}"
-    dest: "{{ sites_available }}{{ ansible_host }}.conf"
-  notify: nginx reload
+- name: Virtualhost file for Ubuntu
+  include: vhubuntu.yml
+  when: ansible_distribution == "Ubuntu"
 
-- name: Remove default config from sites-enabled
-  file:
-    path: "{{ sites_enabled }}default"
-    state: absent
-  notify: nginx reload
-
-- name: Create symlinks for virtualhosts
-  file:
-    src: "{{ sites_available }}{{ ansible_host }}.conf"
-    dest: "{{ sites_enabled }}{{ ansible_host }}.conf"
-    state: link
-  notify: nginx reload
+- name: Virtualhost file for CentOS
+  include: vhcentos.yml
+  when: ansible_distribution == "CentOS"
 
 - name: Create cron job for certificate renewal
   cron:

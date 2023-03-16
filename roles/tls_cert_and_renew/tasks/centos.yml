@@ -1,0 +1,9 @@
+---
+- name: update
+  yum:
+    update_cache: yes
+
+- name: Install Certbot
+  yum:
+    name: certbot-nginx
+    state: present

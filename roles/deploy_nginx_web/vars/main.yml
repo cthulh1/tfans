@@ -1,16 +1,4 @@
 ---
-# nginx vars
-  nginx_src: "nginx.conf.j2"
-  nginx_dest: "/etc/nginx/nginx.conf"
-  # enter "#" or "" to switch off/switch on mail module in nginx.conf
-  mail_module_onoff: "#"
-  worker_connections: 768
-  keepalive_timeout: 65
-  types_hash_max_size: 2048
-  pop3_localhost: 110
-  imap_localhost: 143
-  access_log: "/var/log/nginx/access.log"
-  error_log: "/var/log/nginx/error.log"
 # index.html vars
   index_temp_file: "index.html.j2"
   web1_user_names:
@@ -21,3 +9,14 @@
     - "Anton"
     - "Alex"
     - "Sergey"
+# nginx vars
+  nginx_src: "nginx.conf.j2"
+  nginx_dest: "/etc/nginx/nginx.conf"
+  # enter "#" or "" to switch off/switch on mail module in nginx.conf
+  mail_module_onoff: "#"
+  keepalive_timeout: 65
+  types_hash_max_size: 2048
+  pop3_localhost: 110
+  imap_localhost: 143
+  access_log: "/var/log/nginx/access.log"
+  error_log: "/var/log/nginx/error.log"

@@ -1,0 +1,19 @@
+---
+- name: Generate Virtualhost file
+  template:
+    src: "{{ vh_temp_file }}"
+    dest: "{{ sites_available }}{{ ansible_host }}.conf"
+  notify: nginx reload
+
+- name: Remove default config from sites-enabled
+  file:
+    path: "{{ sites_enabled }}default"
+    state: absent
+  notify: nginx reload
+
+- name: Create symlinks for virtualhosts
+  file:
+    src: "{{ sites_available }}{{ ansible_host }}.conf"
+    dest: "{{ sites_enabled }}{{ ansible_host }}.conf"
+    state: link
+  notify: nginx reload

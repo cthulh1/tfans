@@ -1,26 +1,22 @@
 ---
-- name: apt-get update
-  apt:
-    update_cache: yes
+- name: Update and install Nginx for Ubuntu
+  include: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
 
-- name: Nginx install
-  apt:
-    name: nginx=1.14.0-0ubuntu1.11
-    state: present
-    #name: nginx
-    #state: latest
-  notify: Start nginx service
-
-- name: Create /var/www/html/ directory
-  file:
-    path: "/var/www/{{ ansible_host }}/html/"
-    state: directory
+- name: Update and install Nginx for Centos
+  include: centos.yml
+  when: ansible_distribution == "CentOS"
 
 - name: Generate Nginx config
   template:
     src: "{{ nginx_src }}"
     dest: "{{ nginx_dest }}"
-  notify: Nginx reload
+  notify: nginx reload
+
+- name: Create /var/www/html/ directory
+  file:
+    path: "/var/www/{{ ansible_host }}/html/"
+    state: directory
 
 - name: Generate index.html files
   template:

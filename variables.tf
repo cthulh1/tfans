@@ -2,10 +2,6 @@ variable "do_token" {
   type = string
 }
 
-variable "do_image" {
-  type = string
-}
-
 variable "do_region" {
   type = string
 }
@@ -14,7 +10,7 @@ variable "do_size" {
   type = string
 }
 
-variable "do_pub_ssh" {
+variable "do_my_ssh" {
   type = string
 }
 

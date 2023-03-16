@@ -1,0 +1,9 @@
+---
+- name: apt-get update
+  apt:
+    update_cache: yes
+
+- name: Install Certbot
+  apt:
+    name: python3-certbot-nginx
+    state: present

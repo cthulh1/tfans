@@ -3,5 +3,5 @@
   hosts: all
   become: yes
   roles:
-    - deploy_nginx_web
+    #- deploy_nginx_web
     - tls_cert_and_renew
