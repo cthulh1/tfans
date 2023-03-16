@@ -18,11 +18,4 @@
   include: vhcentos.yml
   when: ansible_distribution == "CentOS"
 
-- name: Create cron job for certificate renewal
-  cron:
-    name: Renew Let's Encrypt certificate
-    minute: "0"
-    hour: "0"
-    weekday: "0"
-    job: "certbot renew ---non-interactive --post-hook 'systemctl reload nginx'"
   
