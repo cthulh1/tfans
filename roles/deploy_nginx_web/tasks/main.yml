@@ -1,11 +1,13 @@
 ---
-- name: Update and install Nginx for Ubuntu
-  include: ubuntu.yml
-  when: ansible_distribution == "Ubuntu"
+- name: Include nginx vars
+  include_vars: vars{{ ansible_distribution }}.yml
 
-- name: Update and install Nginx for Centos
-  include: centos.yml
-  when: ansible_distribution == "CentOS"
+- name: debug
+  debug:
+    msg: "{{ nginx_version }}"
+
+- name: Update and install Nginx
+  include: ngx{{ ansible_distribution }}.yml
 
 - name: Generate Nginx config
   template:

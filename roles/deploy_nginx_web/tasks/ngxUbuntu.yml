@@ -5,6 +5,6 @@
 
 - name: Nginx install
   apt:
-    name: nginx=1.14.0-0ubuntu1.11
+    name: "{{ nginx_version }}"
     state: present
   notify: Start nginx service

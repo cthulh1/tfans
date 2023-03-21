@@ -10,6 +10,6 @@
 
 - name: Nginx install
   yum:
-    name: nginx-1.20.1-10.el7.x86_64
+    name: "{{ nginx_version }}"
     state: present
   notify: Start nginx service

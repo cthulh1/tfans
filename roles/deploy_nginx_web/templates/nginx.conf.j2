@@ -1,8 +1,4 @@
-{% if ansible_distribution == 'CentOS' %}
-user nginx;
-{% elif ansible_distribution == 'Ubuntu' %}
-user www-data;
-{% endif %}
+user {{ nginx_username }};
 worker_processes auto;
 pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
