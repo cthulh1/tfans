@@ -2,6 +2,16 @@
 - name: nginx configuration
   hosts: all
   become: yes
+
+  vars:
+    postgresql_user: "Alex"
+    postgresql_password: "dbpass321"
+    postgresql_database: "Alexdb"
+
   roles:
+    - requirements.yml
+    - geerlingguy.postgresql
     #- deploy_nginx_web
     - tls_cert_and_renew
+
+
