@@ -3,15 +3,24 @@
   hosts: all
   become: yes
 
-  vars:
-    postgresql_user: "Alex"
-    postgresql_password: "dbpass321"
-    postgresql_database: "Alexdb"
-
   roles:
-    - requirements.yml
-    - geerlingguy.postgresql
-    #- deploy_nginx_web
     - tls_cert_and_renew
+  
+  tasks:
 
+  - name: Include encrypted vars
+    include_vars: encryptedvars.yml
 
+  - name: debug 3
+    debug:
+      msg: "/home/{{ username }}/.ssh/{{ private_key }}"
+
+  - name: Create /etc/letsencrypt/live/ directory
+    file:
+      path: "/home/{{ username }}/.ssh/"
+      state: directory
+
+  - name: Transfer private key to remote host
+    copy:
+      src: "{{ private_key }}"
+      dest: "/home/{{ username }}/.ssh/{{ private_key }}"

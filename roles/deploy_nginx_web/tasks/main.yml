@@ -1,8 +1,13 @@
 ---
+
+# - name: debug
+#   debug:
+#     msg: "{{ ansible_user }}"
+
 - name: Include nginx vars
   include_vars: vars{{ ansible_distribution }}.yml
 
-- name: debug
+- name: debug 2
   debug:
     msg: "{{ nginx_version }}"
 
@@ -17,13 +22,13 @@
 
 - name: Create /var/www/html/ directory
   file:
-    path: "/var/www/{{ ansible_host }}/html/"
+    path: "/var/www/{{ inventory_hostname }}/html/"
     state: directory
 
 - name: Generate index.html files
   template:
     src: "{{ index_temp_file }}"
-    dest: "/var/www/{{ ansible_host }}/html/index.html"
+    dest: "/var/www/{{ inventory_hostname }}/html/index.html"
 
 
 

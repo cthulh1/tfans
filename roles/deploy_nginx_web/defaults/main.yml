@@ -1,0 +1,3 @@
+---
+  nginx_username: "www-data"
+  nginx_version: "nginx"

@@ -1,8 +1,9 @@
 locals {
-  vps_ip     = concat(digitalocean_droplet.terraform-do[*].ipv4_address)
-  aws_prefix  = keys(var.devs)
-  aws_image = values(var.devs)
-  outs_count = length(var.devs)
+  vps_ip         = concat(digitalocean_droplet.terraform-do[*].ipv4_address)
+  aws_prefix     = keys(var.devs)
+  aws_image      = values(var.devs)
+  outs_count     = length(var.devs)
+  do_user_passwd = random_string.password[*].result
 }
 
 resource "random_string" "password" {
@@ -35,7 +36,10 @@ resource "digitalocean_droplet" "terraform-do" {
     inline = [
       "echo ${var.do_login}:${element(random_string.password[*].result, count.index)} | chpasswd",
       "sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config",
-      "systemctl restart sshd"
+      "systemctl restart sshd",
+      "sudo useradd -m ${var.do_user}",
+      "echo '${element(local.do_user_passwd[*], count.index)}' | sudo passwd ${var.do_user} --stdin",
+      "sudo usermod -aG sudo ${var.do_user}"
     ]
   }
 }
@@ -57,7 +61,7 @@ resource "local_file" "output_file" {
 resource "local_file" "ans_inventory" {
   content  = templatefile(var.ans_temp_file_path, {
     ans_ip      = "${digitalocean_droplet.terraform-do[*].ipv4_address}",
-    ans_passwd  = "${random_string.password[*].result}",
+    ans_host_user  = "${var.do_user}",
     ans_user    = "${var.conn_user}",
     ans_host    = "${aws_route53_record.devops_4038_dns[*].name}"
   })

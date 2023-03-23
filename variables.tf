@@ -14,6 +14,10 @@ variable "do_my_ssh" {
   type = string
 }
 
+variable "do_user" {
+  type = string
+}
+
 variable "email" {
   type = string
 }

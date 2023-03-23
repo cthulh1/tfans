@@ -1,4 +1,4 @@
-output "user_passwd" {
+output "root_passwd" {
   value = random_string.password[*].result
   #sensitive = true
 }
@@ -14,4 +14,8 @@ output "aws_image" {
 
 output "aws_prefix" {
   value = local.aws_prefix[*]
+}
+
+output "user_passwd" {
+  value = local.do_user_passwd[*]
 }
