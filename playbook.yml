@@ -15,7 +15,7 @@
     debug:
       msg: "/home/{{ username }}/.ssh/{{ private_key }}"
 
-  - name: Create /etc/letsencrypt/live/ directory
+  - name: Create home/username/.ssh/ directory
     file:
       path: "/home/{{ username }}/.ssh/"
       state: directory
