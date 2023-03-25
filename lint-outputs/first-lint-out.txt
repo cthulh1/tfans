@@ -1,0 +1,64 @@
+[34mplaybook.yml[0m[2m:4:[0m [1;91myaml[truthy][0m[91m: Truthy value should be one of [0m
+[34mplaybook.yml[0m[2m:7:[0m [1;91myaml[trailing-spaces][0m[91m: Trailing spaces[0m
+[34mroles/deploy_nginx_web/handlers/main.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (service).[0m
+[34mroles/deploy_nginx_web/handlers/main.yml[0m[2m:6:[0m [1;91myaml[truthy][0m[91m: Truthy value should be one of [0m
+[34mroles/deploy_nginx_web/handlers/main.yml[0m[2m:8:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (service).[0m
+[34mroles/deploy_nginx_web/handlers/main.yml[0m[2m:8:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (include_vars).[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:5:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (debug).[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:5:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:9:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (include_tasks).[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:12:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (template).[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:12:[0m [1;91mrisky-file-permissions[0m[91m: File permissions unset or incorrect.[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:18:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (file).[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:18:[0m [1;91mrisky-file-permissions[0m[91m: File permissions unset or incorrect.[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:20:[0m [1;91myaml[trailing-spaces][0m[91m: Trailing spaces[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:23:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (template).[0m
+[34mroles/deploy_nginx_web/tasks/main.yml[0m[2m:23:[0m [1;91mrisky-file-permissions[0m[91m: File permissions unset or incorrect.[0m
+[34mroles/deploy_nginx_web/tasks/ngxCentOS.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (yum).[0m
+[34mroles/deploy_nginx_web/tasks/ngxCentOS.yml[0m[2m:2:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/deploy_nginx_web/tasks/ngxCentOS.yml[0m[2m:4:[0m [1;91myaml[truthy][0m[91m: Truthy value should be one of [0m
+[34mroles/deploy_nginx_web/tasks/ngxCentOS.yml[0m[2m:6:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (yum).[0m
+[34mroles/deploy_nginx_web/tasks/ngxCentOS.yml[0m[2m:6:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/deploy_nginx_web/tasks/ngxCentOS.yml[0m[2m:11:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (yum).[0m
+[34mroles/deploy_nginx_web/tasks/ngxUbuntu.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (apt).[0m
+[34mroles/deploy_nginx_web/tasks/ngxUbuntu.yml[0m[2m:2:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/deploy_nginx_web/tasks/ngxUbuntu.yml[0m[2m:4:[0m [1;91myaml[truthy][0m[91m: Truthy value should be one of [0m
+[34mroles/deploy_nginx_web/tasks/ngxUbuntu.yml[0m[2m:6:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (apt).[0m
+[34mroles/tls_cert_and_renew/handlers/main.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (service).[0m
+[34mroles/tls_cert_and_renew/handlers/main.yml[0m[2m:2:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/tls_cert_and_renew/handlers/main.yml[0m[2m:5:[0m [1;91myaml[new-line-at-end-of-file][0m[91m: No new line character at the end of file[0m
+[34mroles/tls_cert_and_renew/tasks/instCentOS.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (yum).[0m
+[34mroles/tls_cert_and_renew/tasks/instCentOS.yml[0m[2m:2:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/tls_cert_and_renew/tasks/instCentOS.yml[0m[2m:6:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (yum).[0m
+[34mroles/tls_cert_and_renew/tasks/instCentOS.yml[0m[2m:6:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/tls_cert_and_renew/tasks/instUbuntu.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (apt).[0m
+[34mroles/tls_cert_and_renew/tasks/instUbuntu.yml[0m[2m:2:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/tls_cert_and_renew/tasks/instUbuntu.yml[0m[2m:6:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (apt).[0m
+[34mroles/tls_cert_and_renew/tasks/instUbuntu.yml[0m[2m:6:[0m [1;91mname[casing][0m[91m: All names should start with an uppercase letter.[0m
+[34mroles/tls_cert_and_renew/tasks/instUbuntu.yml[0m[2m:9:[0m [1;91myaml[new-line-at-end-of-file][0m[91m: No new line character at the end of file[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (include_tasks).[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:9:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (file).[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:9:[0m [1;91mrisky-file-permissions[0m[91m: File permissions unset or incorrect.[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:14:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (copy).[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:14:[0m [1;91mrisky-file-permissions[0m[91m: File permissions unset or incorrect.[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:19:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (copy).[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:19:[0m [1;91mrisky-file-permissions[0m[91m: File permissions unset or incorrect.[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:24:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (include_tasks).[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:27:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (cron).[0m
+[34mroles/tls_cert_and_renew/tasks/main.yml[0m[2m:33:[0m [1;91myaml[new-line-at-end-of-file][0m[91m: No new line character at the end of file[0m
+[34mroles/tls_cert_and_renew/tasks/vhCentOS.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (template).[0m
+[34mroles/tls_cert_and_renew/tasks/vhCentOS.yml[0m[2m:2:[0m [1;91mrisky-file-permissions[0m[91m: File permissions unset or incorrect.[0m
+[34mroles/tls_cert_and_renew/tasks/vhCentOS.yml[0m[2m:6:[0m [1;91myaml[new-line-at-end-of-file][0m[91m: No new line character at the end of file[0m
+[34mroles/tls_cert_and_renew/tasks/vhUbuntu.yml[0m[2m:2:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (template).[0m
+[34mroles/tls_cert_and_renew/tasks/vhUbuntu.yml[0m[2m:2:[0m [1;91mrisky-file-permissions[0m[91m: File permissions unset or incorrect.[0m
+[34mroles/tls_cert_and_renew/tasks/vhUbuntu.yml[0m[2m:5:[0m [1;91myaml[trailing-spaces][0m[91m: Trailing spaces[0m
+[34mroles/tls_cert_and_renew/tasks/vhUbuntu.yml[0m[2m:8:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (file).[0m
+[34mroles/tls_cert_and_renew/tasks/vhUbuntu.yml[0m[2m:11:[0m [1;91myaml[trailing-spaces][0m[91m: Trailing spaces[0m
+[34mroles/tls_cert_and_renew/tasks/vhUbuntu.yml[0m[2m:14:[0m [1;91mfqcn[action-core][0m[91m: Use FQCN for builtin module actions (file).[0m
+[34mroles/tls_cert_and_renew/tasks/vhUbuntu.yml[0m[2m:14:[0m [1;91myaml[trailing-spaces][0m[91m: Trailing spaces[0m
+[34mroles/tls_cert_and_renew/tasks/vhUbuntu.yml[0m[2m:19:[0m [1;91myaml[new-line-at-end-of-file][0m[91m: No new line character at the end of file[0m
+[34mroles/tls_cert_and_renew/vars/main.yml[0m[2m:2:[0m [1;91myaml[indentation][0m[91m: Wrong indentation: expected 0 but found 2[0m
+[34mroles/tls_cert_and_renew/vars/main.yml[0m[2m:6:[0m [1;91myaml[trailing-spaces][0m[91m: Trailing spaces[0m
+
+Failed after min profile: 62 failure(s), 0 warning(s) on 16 files.
