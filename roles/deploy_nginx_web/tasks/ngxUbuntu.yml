@@ -1,10 +1,10 @@
 ---
-- name: update
-  apt:
-    update_cache: yes
+- name: Update cache
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: Nginx install
-  apt:
+  ansible.builtin.apt:
     name: "{{ nginx_version }}"
     state: present
   notify: Start nginx service

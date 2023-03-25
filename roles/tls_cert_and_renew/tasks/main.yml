@@ -1,27 +1,36 @@
 ---
-- name: install certbot
-  include: inst{{ ansible_distribution }}.yml
+- name: Install certbot
+  ansible.builtin.include_tasks: inst{{ ansible_distribution }}.yml
 
 
 # - name: Let's Encrypt cert
-#   shell: "certbot certonly --non-interactive --nginx --agree-tos --preferred-challenges http --email {{ email }} -d {{ inventory_hostname }}"
+#   ansible.builtin.shell: "certbot certonly --non-interactive --nginx --agree-tos --preferred-challenges http --email {{ email }} -d {{ inventory_hostname }}"
 
 - name: Create /etc/letsencrypt/live/ directory
-  file:
+  ansible.builtin.file:
     path: "{{ tls_path }}{{ inventory_hostname }}/"
     state: directory
+    mode: '644'
 
 - name: Transfer TLS cert
-  copy:
+  ansible.builtin.copy:
     src: "{{ tls_cert }}"
     dest: "{{ tls_path }}{{ inventory_hostname }}/{{ tls_cert }}"
+    mode: '644'
 
 - name: Transfer TLS key
-  copy:
+  ansible.builtin.copy:
     src: "{{ tls_key }}"
     dest: "{{ tls_path }}{{ inventory_hostname }}/{{ tls_key }}"
+    mode: '644'
 
 - name: Generating Virtualhost file
-  include: vh{{ ansible_distribution }}.yml
+  ansible.builtin.include_tasks: vh{{ ansible_distribution }}.yml
 
-  
+- name: Create cron job for certificate renewal
+  ansible.builtin.cron:
+    name: Renew Let's Encrypt certificate
+    minute: "0"
+    hour: "0"
+    weekday: "0"
+    job: "certbot renew ---non-interactive --post-hook 'systemctl reload nginx'"

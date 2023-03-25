@@ -1,34 +1,29 @@
 ---
-
-# - name: debug
-#   debug:
-#     msg: "{{ ansible_user }}"
-
 - name: Include nginx vars
-  include_vars: vars{{ ansible_distribution }}.yml
+  ansible.builtin.include_vars: vars{{ ansible_distribution }}.yml
 
-- name: debug 2
-  debug:
+- name: Debug 2
+  ansible.builtin.debug:
     msg: "{{ nginx_version }}"
 
 - name: Update and install Nginx
-  include: ngx{{ ansible_distribution }}.yml
+  ansible.builtin.include_tasks: ngx{{ ansible_distribution }}.yml
 
 - name: Generate Nginx config
-  template:
+  ansible.builtin.template:
     src: "{{ nginx_src }}"
     dest: "{{ nginx_dest }}"
-  notify: nginx reload
+    mode: '644'
+  notify: Nginx reload
 
 - name: Create /var/www/html/ directory
-  file:
+  ansible.builtin.file:
     path: "/var/www/{{ inventory_hostname }}/html/"
     state: directory
+    mode: '755'
 
 - name: Generate index.html files
-  template:
+  ansible.builtin.template:
     src: "{{ index_temp_file }}"
     dest: "/var/www/{{ inventory_hostname }}/html/index.html"
-
-
-
+    mode: '644'

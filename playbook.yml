@@ -1,26 +1,21 @@
 ---
-- name: nginx configuration
+- name: Web servers configuration
   hosts: all
-  become: yes
+  become: true
 
   roles:
+    - deploy_nginx_web
     - tls_cert_and_renew
-  
-  tasks:
 
-  - name: Include encrypted vars
-    include_vars: encryptedvars.yml
+  # tasks:
+    # - name: Create /etc/letsencrypt/live/ directory
+    #   ansible.builtin.file:
+    #     path: "/home/{{ username }}/.ssh/"
+    #     state: directory
+    #     mode: '644'
 
-  - name: debug 3
-    debug:
-      msg: "/home/{{ username }}/.ssh/{{ private_key }}"
-
-  - name: Create home/username/.ssh/ directory
-    file:
-      path: "/home/{{ username }}/.ssh/"
-      state: directory
-
-  - name: Transfer private key to remote host
-    copy:
-      src: "{{ private_key }}"
-      dest: "/home/{{ username }}/.ssh/{{ private_key }}"
+    # - name: Transfer private key to remote host
+    #   ansible.builtin.copy:
+    #     src: "{{ private_key }}"
+    #     dest: "/home/{{ username }}/.ssh/{{ private_key }}"
+    #     mode: '644'

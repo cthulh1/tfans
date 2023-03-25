@@ -1,5 +1,0 @@
-# ---
-  # roles:
-  #   - name: geerlingguy.postgresql
-  #     src: https://github.com/geerlingguy/ansible-role-postgresql
-  #     version: 3.0.0

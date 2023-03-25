@@ -1,9 +1,9 @@
 ---
-- name: apt-get update
-  apt:
-    update_cache: yes
+- name: Apt-get update
+  ansible.builtin.apt:
+    update_cache: true
 
 - name: Install Certbot
-  apt:
+  ansible.builtin.apt:
     name: python3-certbot-nginx
     state: present

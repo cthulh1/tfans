@@ -1,19 +1,21 @@
 ---
 - name: Generate Virtualhost file
-  template:
+  ansible.builtin.template:
     src: "{{ vh_temp_file }}"
     dest: "{{ sites_available }}{{ inventory_hostname }}.conf"
-  notify: nginx reload
+    mode: '644'
+  notify: Nginx reload
 
 - name: Remove default config from sites-enabled
-  file:
+  ansible.builtin.file:
     path: "{{ sites_enabled }}default"
     state: absent
-  notify: nginx reload
+  notify: Nginx reload
 
 - name: Create symlinks for virtualhosts
-  file:
+  ansible.builtin.file:
     src: "{{ sites_available }}{{ inventory_hostname }}.conf"
     dest: "{{ sites_enabled }}{{ inventory_hostname }}.conf"
     state: link
-  notify: nginx reload
+    mode: '644'
+  notify: Nginx reload

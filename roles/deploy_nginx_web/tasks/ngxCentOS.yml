@@ -1,15 +1,15 @@
 ---
-- name: update
-  yum:
-    update_cache: yes
+- name: Update cache
+  ansible.builtin.yum:
+    update_cache: true
 
-- name: install epel-release
-  yum:
+- name: Install epel-release
+  ansible.builtin.yum:
     name: epel-release
     state: present
 
 - name: Nginx install
-  yum:
+  ansible.builtin.yum:
     name: "{{ nginx_version }}"
     state: present
   notify: Start nginx service

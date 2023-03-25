@@ -1,9 +1,9 @@
 ---
-- name: update
-  yum:
-    update_cache: yes
+- name: Update cache
+  ansible.builtin.yum:
+    update_cache: true
 
 - name: Install Certbot
-  yum:
+  ansible.builtin.yum:
     name: certbot-nginx
     state: present

@@ -1,6 +1,7 @@
 ---
 - name: Generate Virtualhost file
-  template:
+  ansible.builtin.template:
     src: "{{ vh_temp_file }}"
     dest: "/etc/nginx/conf.d/{{ inventory_hostname }}.conf"
-  notify: nginx reload
+    mode: '644'
+  notify: Nginx reload
