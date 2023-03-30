@@ -1,5 +1,4 @@
 do_token           = " "
-do_image           = " "
 do_region          = " "
 do_size            = " "
 do_pub_ssh         = " "
@@ -18,8 +17,12 @@ priv_rsa_path      = " "
 temp_file_path     = " "
 output_file_path   = " "
 ans_temp_file_path = " "
-devs               = {
-  prefix1 = "my_login1"
-  prefix2 = "my_login2"
-  prefix3 = "my_login3"
+lb_srv             = {
+  lb1 = "do_image"
+}
+
+app_srv            = {
+  app1 = "do_image"
+  app2 = "do_image"
+  app3 = "do_image"
 }

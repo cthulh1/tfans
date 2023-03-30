@@ -1,21 +1,25 @@
-output "root_passwd" {
-  value = random_string.password[*].result
+output "lb_root_passwd" {
+  value = random_string.lb_password[*].result
   #sensitive = true
 }
 
-
-output "count" {
-  value = length(var.devs)
+output "app_root_passwd" {
+  value = random_string.app_password[*].result
+  #sensitive = true
 }
 
-output "aws_image" {
-  value = local.aws_image[*]
-}
+# output "count" {
+#   value = local.vps_count
+# }
 
-output "aws_prefix" {
-  value = local.aws_prefix[*]
-}
+# output "aws_image" {
+#   value = local.aws_image[*]
+# }
 
-output "user_passwd" {
-  value = local.do_user_passwd[*]
-}
+# output "aws_prefix" {
+#   value = local.aws_prefix[*]
+# }
+
+# output "user_passwd" {
+#   value = local.do_user_passwd[*]
+# }

@@ -18,12 +18,14 @@
 
 - name: Create /var/www/html/ directory
   ansible.builtin.file:
-    path: "/var/www/{{ inventory_hostname }}/html/"
+    path: "/var/www/{{ domain_name }}/html/"
     state: directory
     mode: '755'
+  when: "'app_srv' in group_names"
 
 - name: Generate index.html files
   ansible.builtin.template:
     src: "{{ index_temp_file }}"
-    dest: "/var/www/{{ inventory_hostname }}/html/index.html"
+    dest: "/var/www/{{ domain_name }}/html/index.html"
     mode: '644'
+  when: "'app_srv' in group_names"

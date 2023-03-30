@@ -1,7 +1,16 @@
 ---
-- name: Generate Virtualhost file
+- name: Generating Virtualhost conf
   ansible.builtin.template:
     src: "{{ vh_temp_file }}"
-    dest: "/etc/nginx/conf.d/{{ inventory_hostname }}.conf"
+    dest: "/etc/nginx/conf.d/{{ domain_name }}.conf"
     mode: '644'
   notify: Nginx reload
+  when: "'app_srv' in group_names"
+
+- name: Generating load-balancer conf
+  ansible.builtin.template:
+    src: "{{ lb_conf_file }}.j2"
+    dest: "/etc/nginx/conf.d/{{ lb_conf_file }}.conf"
+    mode: '644'
+  notify: Nginx reload
+  when: "'lb_srv' in group_names"

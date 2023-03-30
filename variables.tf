@@ -80,6 +80,10 @@ variable "invent_file_path" {
   default = "inventory.yml"
 }
 
-variable "devs" {
+variable "lb_srv" {
+  type = map(string)
+}
+
+variable "app_srv" {
   type = map(string)
 }

@@ -2,20 +2,31 @@
 - name: Generate Virtualhost file
   ansible.builtin.template:
     src: "{{ vh_temp_file }}"
-    dest: "{{ sites_available }}{{ inventory_hostname }}.conf"
+    dest: "{{ sites_available }}{{ domain_name }}.conf"
     mode: '644'
   notify: Nginx reload
+  when: "'app_srv' in group_names"
 
 - name: Remove default config from sites-enabled
   ansible.builtin.file:
     path: "{{ sites_enabled }}default"
     state: absent
   notify: Nginx reload
+  when: "'app_srv' in group_names"
 
 - name: Create symlinks for virtualhosts
   ansible.builtin.file:
-    src: "{{ sites_available }}{{ inventory_hostname }}.conf"
-    dest: "{{ sites_enabled }}{{ inventory_hostname }}.conf"
+    src: "{{ sites_available }}{{ domain_name }}.conf"
+    dest: "{{ sites_enabled }}{{ domain_name }}.conf"
     state: link
     mode: '644'
   notify: Nginx reload
+  when: "'app_srv' in group_names"
+
+- name: Generating load-balancer conf
+  ansible.builtin.template:
+    src: "{{ lb_conf_file }}.j2"
+    dest: "/etc/nginx/conf.d/{{ lb_conf_file }}.conf"
+    mode: '644'
+  notify: Nginx reload
+  when: "'lb_srv' in group_names"

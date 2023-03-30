@@ -1,10 +1,32 @@
 ---
 all:
-  hosts:
-%{ for i, hosts in ans_host ~}
-    ${hosts}:
-      inventory_hostname: ${ans_ip[i]}
-      ansible_user: ${ans_user}
-      host_user: ${ans_host_user}
+  vars:
+%{ for dns in ans_host ~}
+    domain_name: ${dns}
+%{ endfor ~}
+    lb_ip:
+%{ for ip in ans_lb_ip ~}
+      - ${ip}
+%{ endfor ~}
+    app_ip:
+%{ for ip2 in ans_app_ip ~}
+      - ${ip2}
+%{ endfor ~}
+  children:
+    lb_srv:
+      hosts:
+%{ for i, ips in ans_lb_ip ~}
+        ${ips}:
+          host_ip: ${ips}
+          ansible_user: ${ans_user}
+          host_user: ${ans_host_user}
+%{ endfor ~}
+    app_srv:
+      hosts:
+%{ for i, n in ans_app_ip ~}
+        ${n}:
+          host_ip: ${n}
+          ansible_user: ${ans_user}
+          host_user: ${ans_host_user}
 %{ endfor ~}
 ...

@@ -7,7 +7,12 @@
     - deploy_nginx_web
     - tls_cert_and_renew
 
-  # tasks:
+  tasks:
+    - name: Debug 3
+      ansible.builtin.debug:
+        msg: "{{ domain_name }}"
+
+
     # - name: Create /etc/letsencrypt/live/ directory
     #   ansible.builtin.file:
     #     path: "/home/{{ username }}/.ssh/"

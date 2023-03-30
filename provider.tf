@@ -2,11 +2,15 @@ terraform {
   required_providers {
     digitalocean = {
       source = "digitalocean/digitalocean"
-      version = "~> 2.0"
+      version = "~> 2.27.1"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 4.60.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.1.0"
     }
   }
 }
@@ -20,3 +24,4 @@ provider "aws" {
   secret_key = var.aws_secret_key
   region = "eu-central-1"
 }
+
